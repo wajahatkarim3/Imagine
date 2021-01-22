@@ -4,20 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.flexbox.*
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.wajahatkarim3.imagine.adapters.PhotosAdapter
 import com.wajahatkarim3.imagine.adapters.TagsAdapter
 import com.wajahatkarim3.imagine.base.BaseFragment
 import com.wajahatkarim3.imagine.databinding.HomeFragmentBinding
 import com.wajahatkarim3.imagine.model.TagModel
+import com.wajahatkarim3.imagine.utils.gone
+import com.wajahatkarim3.imagine.utils.showSnack
+import com.wajahatkarim3.imagine.utils.visible
 
 class HomeFragment : BaseFragment() {
 
     private lateinit var viewModel: HomeViewModel
     lateinit var bi: HomeFragmentBinding
 
-    val tagItemsList = arrayListOf<TagModel>()
     lateinit var tagsAdapter: TagsAdapter
+    lateinit var photosAdapter: PhotosAdapter
+
+    var snackbar: Snackbar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,16 +41,19 @@ class HomeFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelProvider).get(HomeViewModel::class.java)
 
         setupViews()
         initTags()
+        initObservations()
+
+        viewModel.init()
     }
 
     fun setupViews() {
         context?.let { ctx ->
             // Tags RecyclerView
-            tagsAdapter = TagsAdapter(tagItemsList) { tag, position ->
+            tagsAdapter = TagsAdapter { tag, position ->
 
             }
             val flexboxLayoutManager = FlexboxLayoutManager(ctx).apply {
@@ -49,6 +63,55 @@ class HomeFragment : BaseFragment() {
             }
             bi.recyclerTags.layoutManager = flexboxLayoutManager
             bi.recyclerTags.adapter = tagsAdapter
+
+            // Photos RecyclerView
+            photosAdapter = PhotosAdapter()
+            bi.recyclerPopularPhotos.adapter = photosAdapter
+
+            // NestedScrollView
+            bi.nestedScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if ((v as NestedScrollView).getChildAt(0).getBottom() <= (bi.nestedScrollView.getHeight()+scrollY)) {
+                    viewModel.loadMorePhotos()
+                }
+            }
+        }
+    }
+
+    fun initObservations() {
+        viewModel.uiStateLiveData.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is LoadingState -> {
+                    bi.recyclerPopularPhotos.gone()
+                    bi.progressPhotos.visible()
+                }
+
+                is LoadingNextPageState -> {
+                    snackbar = bi.root.showSnack("Loading more photos...")
+                }
+
+                is ContentState -> {
+                    bi.recyclerPopularPhotos.visible()
+                    bi.progressPhotos.gone()
+                }
+
+                is ContentNextPageState -> {
+                    bi.recyclerPopularPhotos.visible()
+                    snackbar?.dismiss()
+                }
+
+                is ErrorState -> {
+                    bi.progressPhotos.gone()
+
+                }
+
+                is ErrorNextPageState -> {
+                    snackbar?.dismiss()
+                }
+            }
+        }
+
+        viewModel.photosListLiveData.observe(viewLifecycleOwner) { photos ->
+            photosAdapter.updateItems(photos)
         }
     }
 
@@ -68,7 +131,8 @@ class HomeFragment : BaseFragment() {
             ),
             TagModel(
                 tagName = "Mountains",
-                imageUrl = "https://www.dw.com/image/48396304_101.jpg"),
+                imageUrl = "https://www.dw.com/image/48396304_101.jpg"
+            ),
             TagModel(
                 tagName = "People",
                 imageUrl = "https://cdn.lifehack.org/wp-content/uploads/2015/02/what-makes-people-happy.jpeg"

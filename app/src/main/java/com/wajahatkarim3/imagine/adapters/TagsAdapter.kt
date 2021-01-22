@@ -8,13 +8,9 @@ import com.wajahatkarim3.imagine.R
 import com.wajahatkarim3.imagine.databinding.TagItemLayoutBinding
 import com.wajahatkarim3.imagine.model.TagModel
 
-class TagsAdapter: RecyclerView.Adapter<TagsAdapter.TagViewHolder> {
+class TagsAdapter(onTagSelected: (tag: TagModel, position: Int) -> Unit): RecyclerView.Adapter<TagsAdapter.TagViewHolder>() {
 
     private val tagItems: ArrayList<TagModel> = arrayListOf()
-
-    constructor(tagItemsList: List<TagModel>, onTagSelected: (tag: TagModel, position: Int) -> Unit) {
-        tagItems.addAll(tagItemsList)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {
         var binding = TagItemLayoutBinding.inflate(

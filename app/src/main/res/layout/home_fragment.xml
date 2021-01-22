@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
+    android:id="@+id/nestedScrollView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -86,7 +87,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerPopularPhotos"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
@@ -95,6 +96,15 @@
             app:spanCount="2"
             tools:itemCount="7"
             tools:listitem="@layout/photo_item_layout"/>
+
+        <ProgressBar android:id="@+id/progressPhotos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
+            app:layout_constraintEnd_toEndOf="@+id/cardSearchPhotos"
+            app:layout_constraintTop_toBottomOf="@+id/lblPopular"
+            android:layout_marginTop="40dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
