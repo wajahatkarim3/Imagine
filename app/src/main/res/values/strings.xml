@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Imagine</string>
+
+    <!-- Screen Titles -->
+    <string name="screen_home_title_str">Home</string>
+
+    <!-- Text Hints -->
+    <string name="hint_search_photos_text_str">Search photos</string>
+
+    <!-- Others -->
+    <string name="label_explore_text_str">Explore</string>
+    <string name="label_popular_text_str">Popular</string>
+
 </resources>

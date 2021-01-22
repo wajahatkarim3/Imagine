@@ -8,8 +8,11 @@
     <color name="color_on_secondary">#2C2C2C</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="color_background">#616161</color>
+    <color name="color_background">#232323</color>
     <color name="color_on_background">#E4E4E4</color>
     <color name="color_error">#ED6E6E</color>
     <color name="color_item_background">#616161</color>
+
+    <color name="color_box_background">#575757</color>
+    <color name="color_hint_text">#88DADADA</color>
 </resources>
