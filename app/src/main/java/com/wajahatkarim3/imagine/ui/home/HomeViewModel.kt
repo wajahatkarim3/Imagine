@@ -1,9 +1,6 @@
 package com.wajahatkarim3.imagine.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.wajahatkarim3.imagine.data.DataState
 import com.wajahatkarim3.imagine.data.usecases.FetchPopularPhotosUsecase
 import com.wajahatkarim3.imagine.model.PhotoModel
@@ -23,12 +20,16 @@ class HomeViewModel @Inject constructor(
 
     private var pageNumber = 1
 
-    fun init() {
+    init {
         fetchPhotos(pageNumber)
     }
 
     fun loadMorePhotos() {
         pageNumber++
+        fetchPhotos(pageNumber)
+    }
+
+    fun retry() {
         fetchPhotos(pageNumber)
     }
 

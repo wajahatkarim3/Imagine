@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import java.io.IOException
 import javax.inject.Inject
 
 /**
@@ -42,7 +43,11 @@ class ImagineRepositoryImpl @Inject constructor(
                 // handle the case when the API request gets an exception response.
                 // e.g. network connection error.
             }.onExceptionSuspend {
-                emit(DataState.error<List<PhotoModel>>(message()))
+                if (this.exception is IOException) {
+                    emit(DataState.error<List<PhotoModel>>(stringUtils.noNetworkErrorMessage()))
+                } else {
+                    emit(DataState.error<List<PhotoModel>>(stringUtils.somethingWentWrong()))
+                }
             }
         }
     }

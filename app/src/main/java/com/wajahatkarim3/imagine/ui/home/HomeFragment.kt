@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.wajahatkarim3.imagine.R
 import com.wajahatkarim3.imagine.adapters.PhotosAdapter
 import com.wajahatkarim3.imagine.adapters.TagsAdapter
 import com.wajahatkarim3.imagine.base.BaseFragment
@@ -18,6 +21,7 @@ import com.wajahatkarim3.imagine.databinding.HomeFragmentBinding
 import com.wajahatkarim3.imagine.model.TagModel
 import com.wajahatkarim3.imagine.utils.gone
 import com.wajahatkarim3.imagine.utils.showSnack
+import com.wajahatkarim3.imagine.utils.showToast
 import com.wajahatkarim3.imagine.utils.visible
 
 class HomeFragment : BaseFragment() {
@@ -46,8 +50,6 @@ class HomeFragment : BaseFragment() {
         setupViews()
         initTags()
         initObservations()
-
-        viewModel.init()
     }
 
     fun setupViews() {
@@ -66,11 +68,12 @@ class HomeFragment : BaseFragment() {
 
             // Photos RecyclerView
             photosAdapter = PhotosAdapter()
+            photosAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             bi.recyclerPopularPhotos.adapter = photosAdapter
 
             // NestedScrollView
-            bi.nestedScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-                if ((v as NestedScrollView).getChildAt(0).getBottom() <= (bi.nestedScrollView.getHeight()+scrollY)) {
+            bi.nestedScrollView.setOnScrollChangeListener { v: NestedScrollView, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                     viewModel.loadMorePhotos()
                 }
             }
@@ -86,7 +89,7 @@ class HomeFragment : BaseFragment() {
                 }
 
                 is LoadingNextPageState -> {
-                    snackbar = bi.root.showSnack("Loading more photos...")
+                    showToast(getString(R.string.message_load_photos_str))
                 }
 
                 is ContentState -> {
@@ -94,18 +97,17 @@ class HomeFragment : BaseFragment() {
                     bi.progressPhotos.gone()
                 }
 
-                is ContentNextPageState -> {
-                    bi.recyclerPopularPhotos.visible()
-                    snackbar?.dismiss()
-                }
-
                 is ErrorState -> {
                     bi.progressPhotos.gone()
-
+                    bi.nestedScrollView.showSnack(state.message, getString(R.string.action_retry_str)) {
+                        viewModel.retry()
+                    }
                 }
 
                 is ErrorNextPageState -> {
-                    snackbar?.dismiss()
+                    bi.nestedScrollView.showSnack(state.message, getString(R.string.action_retry_str)) {
+                        viewModel.retry()
+                    }
                 }
             }
         }

@@ -10,5 +10,9 @@
     <!-- Others -->
     <string name="label_explore_text_str">Explore</string>
     <string name="label_popular_text_str">Popular</string>
+    <string name="message_load_photos_str">Loading more photos...</string>
+    <string name="action_retry_str">Retry</string>
+    <string name="message_no_network_connected_str">No network connected!</string>
+    <string name="message_something_went_wrong_str">Something went wrong!</string>
 
 </resources>
