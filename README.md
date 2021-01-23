@@ -27,6 +27,8 @@ An simple image gallery app utilizing Unsplash API.
 * Utilized Usecase, Repository pattern for data
 * Includes unit tests for Use cases, Repository, ViewModels, API Service response.
 
+<img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/Imagine-UnitTests.PNG" width="500px" />
+
 ## 📱 Download Demo on Android
 Download the [APK file from here](https://github.com/wajahatkarim3/Imagine/blob/main/Imagine-App.apk?raw=true) on your Android phone and enjoy the Demo App :)
 
