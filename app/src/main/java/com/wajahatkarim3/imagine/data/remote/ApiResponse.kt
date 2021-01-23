@@ -40,6 +40,13 @@ sealed class ApiResponse<out T> {
          */
         fun <T> exception(ex: Throwable) = ApiFailureResponse.Exception<T>(ex)
 
+        /**
+         * ApiResponse error Factory.
+         *
+         * [ApiFailureResponse] factory function.
+         */
+        fun <T> error(response: Response<T>) = ApiFailureResponse.Error<T>(response)
+
 
         /**
          * ApiResponse Factory.

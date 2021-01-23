@@ -32,6 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
+    }
     buildFeatures {
         viewBinding true
     }
@@ -82,7 +86,14 @@ dependencies {
     implementation "io.coil-kt:coil:1.1.0"
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
-    testImplementation 'junit:junit:4.+'
+    // Testing
+    testImplementation 'junit:junit:4.12'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    testImplementation "io.mockk:mockk:1.9.3"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp_version"
+    androidTestImplementation 'org.mockito:mockito-android:2.18.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation "io.mockk:mockk-android:1.9.3"
 }
