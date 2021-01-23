@@ -10,8 +10,8 @@ An simple image gallery app utilizing Unsplash API.
 <br/>
 
 <div align="center">
-  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/PopularPhotosDay.png" width="280px" />  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/PhotoDetailsDay.png" width="280px" />  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/SearchResultsDay.png" width="280px" /><br>
-  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/PopularPhotosNight.png" width="280px" />  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/PhotoDetailsNight.png" width="280px" />  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/SearchResultsNight.png" width="280px" />
+  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/PopularPhotosDay.png" width="230px" />  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/PhotoDetailsDay.png" width="230px" />  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/SearchResultsDay.png" width="230px" /><br>
+  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/PopularPhotosNight.png" width="230px" />  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/PhotoDetailsNight.png" width="230px" />  <img src="https://github.com/wajahatkarim3/Imagine/blob/main/screenshots/SearchResultsNight.png" width="230px" />
 </div>
 
 <br/>
