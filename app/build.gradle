@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -33,6 +34,9 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    androidExtensions {
+        features = ["parcelize"]
     }
 }
 
@@ -76,6 +80,7 @@ dependencies {
     // Third-party
     implementation 'com.google.android:flexbox:2.0.1'
     implementation "io.coil-kt:coil:1.1.0"
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

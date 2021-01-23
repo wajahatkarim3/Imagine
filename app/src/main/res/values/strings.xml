@@ -3,6 +3,7 @@
 
     <!-- Screen Titles -->
     <string name="screen_home_title_str">Home</string>
+    <string name="screen_photo_details_title_str">Photo Details</string>
 
     <!-- Text Hints -->
     <string name="hint_search_photos_text_str">Search photos</string>

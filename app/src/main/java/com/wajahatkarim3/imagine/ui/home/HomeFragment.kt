@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.AlignItems
@@ -19,6 +21,7 @@ import com.wajahatkarim3.imagine.adapters.TagsAdapter
 import com.wajahatkarim3.imagine.base.BaseFragment
 import com.wajahatkarim3.imagine.databinding.HomeFragmentBinding
 import com.wajahatkarim3.imagine.model.TagModel
+import com.wajahatkarim3.imagine.ui.MainActivity
 import com.wajahatkarim3.imagine.utils.gone
 import com.wajahatkarim3.imagine.utils.showSnack
 import com.wajahatkarim3.imagine.utils.showToast
@@ -67,7 +70,10 @@ class HomeFragment : BaseFragment() {
             bi.recyclerTags.adapter = tagsAdapter
 
             // Photos RecyclerView
-            photosAdapter = PhotosAdapter()
+            photosAdapter = PhotosAdapter() { photo, position ->
+                var bundle = bundleOf("photo" to photo)
+                findNavController().navigate(R.id.action_homeFragment_to_photoDetailsFragment, bundle)
+            }
             photosAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             bi.recyclerPopularPhotos.adapter = photosAdapter
 

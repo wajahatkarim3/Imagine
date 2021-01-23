@@ -25,13 +25,22 @@
         <item name="android:navigationBarColor">@color/background_material_light</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <!-- Customize your theme here. -->
+        <item name="drawerArrowStyle">@style/Theme.Imagine.Toolbar.DrawerArrowToggle</item>
+
     </style>
 
     <!-- Toolbar -->
     <style name="Theme.Imagine.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="titleTextColor">@color/color_on_background</item>
         <item name="colorOnPrimary">@color/color_on_background</item>
+        <item name="colorControlNormal">@color/color_on_background</item>
         <item name="android:background">@color/color_background</item>
     </style>
+
+    <style name="Theme.Imagine.Toolbar.DrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/color_on_background</item>
+    </style>
+
+
 
 </resources>

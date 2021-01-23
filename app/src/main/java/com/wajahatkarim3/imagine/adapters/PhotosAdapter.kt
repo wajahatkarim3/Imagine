@@ -8,7 +8,7 @@ import com.wajahatkarim3.imagine.R
 import com.wajahatkarim3.imagine.databinding.PhotoItemLayoutBinding
 import com.wajahatkarim3.imagine.model.PhotoModel
 
-class PhotosAdapter: RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
+class PhotosAdapter(val onPhotoSelected: (photo: PhotoModel, position: Int) -> Unit): RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
 
     private val photoItems: ArrayList<PhotoModel> = arrayListOf()
 
@@ -41,6 +41,11 @@ class PhotosAdapter: RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder>() {
                     placeholder(R.color.color_box_background)
                     crossfade(true)
                 }
+
+                cardPhoto.setOnClickListener {
+                    onPhotoSelected(photoModel, position)
+                }
+
             }
         }
     }
