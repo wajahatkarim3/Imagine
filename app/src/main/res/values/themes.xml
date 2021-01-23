@@ -34,6 +34,7 @@
         <item name="titleTextColor">@color/color_on_background</item>
         <item name="colorOnPrimary">@color/color_on_background</item>
         <item name="colorControlNormal">@color/color_on_background</item>
+        <item name="colorButtonNormal">@color/color_on_background</item>
         <item name="android:background">@color/color_background</item>
     </style>
 
