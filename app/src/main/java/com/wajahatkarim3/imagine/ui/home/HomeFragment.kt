@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
@@ -22,10 +23,7 @@ import com.wajahatkarim3.imagine.base.BaseFragment
 import com.wajahatkarim3.imagine.databinding.HomeFragmentBinding
 import com.wajahatkarim3.imagine.model.TagModel
 import com.wajahatkarim3.imagine.ui.MainActivity
-import com.wajahatkarim3.imagine.utils.gone
-import com.wajahatkarim3.imagine.utils.showSnack
-import com.wajahatkarim3.imagine.utils.showToast
-import com.wajahatkarim3.imagine.utils.visible
+import com.wajahatkarim3.imagine.utils.*
 
 class HomeFragment : BaseFragment() {
 
@@ -59,7 +57,7 @@ class HomeFragment : BaseFragment() {
         context?.let { ctx ->
             // Tags RecyclerView
             tagsAdapter = TagsAdapter { tag, position ->
-
+                performSearch(tag.tagName)
             }
             val flexboxLayoutManager = FlexboxLayoutManager(ctx).apply {
                 flexWrap = FlexWrap.WRAP
@@ -83,7 +81,29 @@ class HomeFragment : BaseFragment() {
                     viewModel.loadMorePhotos()
                 }
             }
+
+            // Input Text Search
+            bi.inputSearchPhotos.setEndIconOnClickListener {
+                bi.txtSearchPhotos.setText("")
+                bi.lblPopular.setText(getString(R.string.label_popular_text_str))
+                viewModel.fetchPhotos(1)
+            }
+
+            bi.txtSearchPhotos.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    bi.txtSearchPhotos.dismissKeyboard()
+                    performSearch(bi.txtSearchPhotos.text.toString())
+                    true
+                }
+                false
+            }
         }
+    }
+
+    private fun performSearch(query: String) {
+        bi.txtSearchPhotos.setText(query)
+        bi.lblPopular.setText(getString(R.string.message_search_results_for_str, query))
+        viewModel.searchPhotos(query)
     }
 
     fun initObservations() {

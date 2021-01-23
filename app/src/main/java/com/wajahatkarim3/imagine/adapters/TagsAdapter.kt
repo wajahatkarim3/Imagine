@@ -8,7 +8,7 @@ import com.wajahatkarim3.imagine.R
 import com.wajahatkarim3.imagine.databinding.TagItemLayoutBinding
 import com.wajahatkarim3.imagine.model.TagModel
 
-class TagsAdapter(onTagSelected: (tag: TagModel, position: Int) -> Unit): RecyclerView.Adapter<TagsAdapter.TagViewHolder>() {
+class TagsAdapter(val onTagSelected: (tag: TagModel, position: Int) -> Unit): RecyclerView.Adapter<TagsAdapter.TagViewHolder>() {
 
     private val tagItems: ArrayList<TagModel> = arrayListOf()
 
@@ -41,6 +41,10 @@ class TagsAdapter(onTagSelected: (tag: TagModel, position: Int) -> Unit): Recycl
                 imgTag.load(tagModel.imageUrl) {
                     placeholder(R.color.color_box_background)
                     crossfade(true)
+                }
+
+                cardTag.setOnClickListener {
+                    onTagSelected(tagModel, position)
                 }
             }
         }

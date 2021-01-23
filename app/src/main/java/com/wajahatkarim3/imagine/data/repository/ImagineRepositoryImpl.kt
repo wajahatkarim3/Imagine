@@ -51,4 +51,33 @@ class ImagineRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun searchPhotos(
+        query: String,
+        pageNumber: Int,
+        pageSize: Int
+    ): Flow<DataState<List<PhotoModel>>> {
+        return flow {
+            apiService.searchPhotos(query, pageNumber, pageSize).apply {
+                this.onSuccessSuspend {
+                    data?.let {
+                        emit(DataState.success(it.photosList))
+                    }
+                }
+                // handle the case when the API request gets an error response.
+                // e.g. internal server error.
+            }.onErrorSuspend {
+                emit(DataState.error<List<PhotoModel>>(message()))
+
+                // handle the case when the API request gets an exception response.
+                // e.g. network connection error.
+            }.onExceptionSuspend {
+                if (this.exception is IOException) {
+                    emit(DataState.error<List<PhotoModel>>(stringUtils.noNetworkErrorMessage()))
+                } else {
+                    emit(DataState.error<List<PhotoModel>>(stringUtils.somethingWentWrong()))
+                }
+            }
+        }
+    }
 }

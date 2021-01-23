@@ -9,6 +9,7 @@
     android:paddingBottom="10dp">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?android:selectableItemBackground"
