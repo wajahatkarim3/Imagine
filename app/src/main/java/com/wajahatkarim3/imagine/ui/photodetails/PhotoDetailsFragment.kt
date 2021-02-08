@@ -12,7 +12,9 @@ import com.wajahatkarim3.imagine.R
 import com.wajahatkarim3.imagine.base.BaseFragment
 import com.wajahatkarim3.imagine.databinding.PhotoDetailsFragmentBinding
 import com.wajahatkarim3.imagine.model.PhotoModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PhotoDetailsFragment : BaseFragment() {
 
     private lateinit var viewModel: PhotoDetailsViewModel
@@ -28,7 +30,7 @@ class PhotoDetailsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelProvider).get(PhotoDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(PhotoDetailsViewModel::class.java)
 
         var photo = arguments?.getParcelable<PhotoModel>("photo")
         if (photo == null) {

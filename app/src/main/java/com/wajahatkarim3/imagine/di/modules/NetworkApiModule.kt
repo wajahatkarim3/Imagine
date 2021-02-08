@@ -6,6 +6,8 @@ import com.wajahatkarim3.imagine.data.remote.UnsplashApiService
 import com.wajahatkarim3.imagine.utils.AppConstants
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,6 +19,7 @@ import javax.inject.Singleton
  * @author Wajahat Karim
  */
 @Module
+@InstallIn(SingletonComponent::class)
 class NetworkApiModule {
 
     @Singleton
