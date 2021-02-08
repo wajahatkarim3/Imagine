@@ -5,10 +5,12 @@ import com.wajahatkarim3.imagine.data.DataState
 import com.wajahatkarim3.imagine.data.usecases.FetchPopularPhotosUsecase
 import com.wajahatkarim3.imagine.data.usecases.SearchPhotosUsecase
 import com.wajahatkarim3.imagine.model.PhotoModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class HomeViewModel @Inject constructor(
     private val fetchPopularPhotosUsecase: FetchPopularPhotosUsecase,
     private val searchPhotosUsecase: SearchPhotosUsecase

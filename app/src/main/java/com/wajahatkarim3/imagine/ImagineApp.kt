@@ -2,33 +2,15 @@ package com.wajahatkarim3.imagine
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.wajahatkarim3.imagine.di.components.DaggerAppComponent
 import com.wajahatkarim3.imagine.utils.isNight
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import javax.inject.Inject
+import dagger.hilt.android.HiltAndroidApp
 
-class ImagineApp: Application(), HasAndroidInjector {
-
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+@HiltAndroidApp
+class ImagineApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        initDi()
         setupDayNightMode()
-    }
-
-    fun initDi() {
-        DaggerAppComponent.builder()
-            .create(this)
-            .build()
-            .inject(this)
-    }
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return androidInjector
     }
 
     fun setupDayNightMode() {

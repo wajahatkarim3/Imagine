@@ -7,6 +7,8 @@ import com.wajahatkarim3.imagine.data.repository.ImagineRepositoryImpl
 import com.wajahatkarim3.imagine.utils.StringUtils
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
@@ -14,6 +16,7 @@ import javax.inject.Singleton
  * @author Wajahat Karim
  */
 @Module
+@InstallIn(SingletonComponent::class)
 class RepositoryModule {
 
     @Singleton

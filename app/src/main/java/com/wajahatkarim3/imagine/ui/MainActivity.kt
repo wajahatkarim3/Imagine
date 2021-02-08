@@ -11,7 +11,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.wajahatkarim3.imagine.R
 import com.wajahatkarim3.imagine.base.BaseActivity
 import com.wajahatkarim3.imagine.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     lateinit var bi: ActivityMainBinding
