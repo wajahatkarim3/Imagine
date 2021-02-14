@@ -88,7 +88,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
-    testImplementation "io.mockk:mockk:1.9.3"
+    testImplementation "io.mockk:mockk:1.10.6"
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp_version"
     androidTestImplementation 'org.mockito:mockito-android:2.18.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
