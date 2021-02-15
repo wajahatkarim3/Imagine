@@ -81,7 +81,7 @@ dependencies {
 
     // Third-party
     implementation 'com.google.android:flexbox:2.0.1'
-    implementation "io.coil-kt:coil:1.1.0"
+    implementation "io.coil-kt:coil:1.1.1"
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     // Testing
@@ -90,7 +90,7 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     testImplementation "io.mockk:mockk:1.9.3"
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp_version"
-    androidTestImplementation 'org.mockito:mockito-android:2.18.3'
+    androidTestImplementation 'org.mockito:mockito-android:3.7.7'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation "io.mockk:mockk-android:1.9.3"
