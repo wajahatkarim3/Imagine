@@ -2,7 +2,6 @@ package com.wajahatkarim3.imagine.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
@@ -57,39 +56,36 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 flexDirection = FlexDirection.ROW
                 alignItems = AlignItems.STRETCH
             }
-            binding.recyclerTags.layoutManager = flexboxLayoutManager
-            binding.recyclerTags.adapter = tagsAdapter
+            bi.recyclerTags.layoutManager = flexboxLayoutManager
+            bi.recyclerTags.adapter = tagsAdapter
 
             // Photos RecyclerView
             photosAdapter = PhotosAdapter() { photo, position ->
                 var bundle = bundleOf("photo" to photo)
-                findNavController().navigate(
-                    R.id.action_homeFragment_to_photoDetailsFragment,
-                    bundle
-                )
+                findNavController().navigate(R.id.action_homeFragment_to_photoDetailsFragment,bundle)
             }
             photosAdapter.stateRestorationPolicy =
                 RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-            binding.recyclerPopularPhotos.adapter = photosAdapter
+            bi.recyclerPopularPhotos.adapter = photosAdapter
 
             // NestedScrollView
-            binding.nestedScrollView.setOnScrollChangeListener { v: NestedScrollView, scrollX, scrollY, oldScrollX, oldScrollY ->
+            bi.nestedScrollView.setOnScrollChangeListener { v: NestedScrollView, scrollX, scrollY, oldScrollX, oldScrollY ->
                 if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                     viewModel.loadMorePhotos()
                 }
             }
 
             // Input Text Search
-            binding.inputSearchPhotos.setEndIconOnClickListener {
-                binding.txtSearchPhotos.setText("")
-                binding.lblPopular.setText(getString(R.string.label_popular_text_str))
+            bi.inputSearchPhotos.setEndIconOnClickListener {
+                bi.txtSearchPhotos.setText("")
+                bi.lblPopular.setText(getString(R.string.label_popular_text_str))
                 viewModel.fetchPhotos(1)
             }
 
-            binding.txtSearchPhotos.setOnEditorActionListener { _, actionId, _ ->
+            bi.txtSearchPhotos.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    binding.txtSearchPhotos.dismissKeyboard()
-                    performSearch(binding.txtSearchPhotos.text.toString())
+                    bi.txtSearchPhotos.dismissKeyboard()
+                    performSearch(bi.txtSearchPhotos.text.toString())
                     true
                 }
                 false
@@ -98,8 +94,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     }
 
     private fun performSearch(query: String) {
-        binding.txtSearchPhotos.setText(query)
-        binding.lblPopular.setText(getString(R.string.message_search_results_for_str, query))
+        bi.txtSearchPhotos.setText(query)
+        bi.lblPopular.setText(getString(R.string.message_search_results_for_str, query))
         viewModel.searchPhotos(query)
     }
 
@@ -107,8 +103,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         viewModel.uiStateLiveData.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is LoadingState -> {
-                    binding.recyclerPopularPhotos.gone()
-                    binding.progressPhotos.visible()
+                    bi.recyclerPopularPhotos.gone()
+                    bi.progressPhotos.visible()
                 }
 
                 is LoadingNextPageState -> {
@@ -116,13 +112,13 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 }
 
                 is ContentState -> {
-                    binding.recyclerPopularPhotos.visible()
-                    binding.progressPhotos.gone()
+                    bi.recyclerPopularPhotos.visible()
+                    bi.progressPhotos.gone()
                 }
 
                 is ErrorState -> {
-                    binding.progressPhotos.gone()
-                    binding.nestedScrollView.showSnack(
+                    bi.progressPhotos.gone()
+                    bi.nestedScrollView.showSnack(
                         state.message,
                         getString(R.string.action_retry_str)
                     ) {
@@ -131,7 +127,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 }
 
                 is ErrorNextPageState -> {
-                    binding.nestedScrollView.showSnack(
+                    bi.nestedScrollView.showSnack(
                         state.message,
                         getString(R.string.action_retry_str)
                     ) {
