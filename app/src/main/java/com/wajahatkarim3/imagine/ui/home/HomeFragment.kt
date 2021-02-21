@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.AlignItems
@@ -29,7 +29,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> HomeFragmentBinding
         get() = HomeFragmentBinding::inflate
 
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
 
     lateinit var tagsAdapter: TagsAdapter
     lateinit var photosAdapter: PhotosAdapter
@@ -38,7 +38,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         setupViews()
         initTags()
@@ -183,6 +182,5 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         )
         tagsAdapter.updateItems(tags)
     }
-
 
 }

@@ -3,7 +3,7 @@ package com.wajahatkarim3.imagine.ui.photodetails
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.wajahatkarim3.imagine.base.BaseFragment
@@ -17,11 +17,10 @@ class PhotoDetailsFragment : BaseFragment<PhotoDetailsFragmentBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> PhotoDetailsFragmentBinding
         get() = PhotoDetailsFragmentBinding::inflate
 
-    private lateinit var viewModel: PhotoDetailsViewModel
+    private val viewModel: PhotoDetailsViewModel by viewModels()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PhotoDetailsViewModel::class.java)
 
         var photo = arguments?.getParcelable<PhotoModel>("photo")
         if (photo == null) {
