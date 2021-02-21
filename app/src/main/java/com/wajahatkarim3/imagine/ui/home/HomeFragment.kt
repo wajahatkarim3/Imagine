@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
@@ -22,14 +21,13 @@ import com.wajahatkarim3.imagine.adapters.TagsAdapter
 import com.wajahatkarim3.imagine.base.BaseFragment
 import com.wajahatkarim3.imagine.databinding.HomeFragmentBinding
 import com.wajahatkarim3.imagine.model.TagModel
-import com.wajahatkarim3.imagine.ui.MainActivity
 import com.wajahatkarim3.imagine.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
     lateinit var bi: HomeFragmentBinding
 
     lateinit var tagsAdapter: TagsAdapter
@@ -48,7 +46,6 @@ class HomeFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         setupViews()
         initTags()

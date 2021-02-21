@@ -1,14 +1,12 @@
 package com.wajahatkarim3.imagine.ui.photodetails
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.wajahatkarim3.imagine.R
 import com.wajahatkarim3.imagine.base.BaseFragment
 import com.wajahatkarim3.imagine.databinding.PhotoDetailsFragmentBinding
 import com.wajahatkarim3.imagine.model.PhotoModel
@@ -17,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PhotoDetailsFragment : BaseFragment() {
 
-    private lateinit var viewModel: PhotoDetailsViewModel
+    private val viewModel: PhotoDetailsViewModel by viewModels()
     private lateinit var bi: PhotoDetailsFragmentBinding
 
     override fun onCreateView(
@@ -30,7 +28,6 @@ class PhotoDetailsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PhotoDetailsViewModel::class.java)
 
         var photo = arguments?.getParcelable<PhotoModel>("photo")
         if (photo == null) {
