@@ -5,7 +5,10 @@ An simple image gallery app utilizing Unsplash API.
 
 <div align="center">
   <sub>Built with ❤︎ by
-  <a href="https://twitter.com/WajahatKarim">Wajahat Karim</a>
+  <a href="https://twitter.com/WajahatKarim">Wajahat Karim</a> and
+  <a href="https://github.com/wajahatkarim3/Imagine/graphs/contributors">
+    contributors
+  </a>
 </div>
 <br/>
 
