@@ -2,7 +2,6 @@ package com.wajahatkarim3.imagine.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
@@ -25,24 +24,17 @@ import com.wajahatkarim3.imagine.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment<HomeFragmentBinding>() {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> HomeFragmentBinding
+        get() = HomeFragmentBinding::inflate
 
     private val viewModel: HomeViewModel by viewModels()
-    lateinit var bi: HomeFragmentBinding
 
     lateinit var tagsAdapter: TagsAdapter
     lateinit var photosAdapter: PhotosAdapter
 
     var snackbar: Snackbar? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        bi = HomeFragmentBinding.inflate(inflater, container, false)
-        return bi.root
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
