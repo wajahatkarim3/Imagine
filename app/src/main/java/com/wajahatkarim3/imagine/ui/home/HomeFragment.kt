@@ -61,10 +61,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             // Photos RecyclerView
             photosAdapter = PhotosAdapter() { photo, position ->
                 var bundle = bundleOf("photo" to photo)
-                findNavController().navigate(R.id.action_homeFragment_to_photoDetailsFragment,bundle)
+                findNavController().navigate(R.id.action_homeFragment_to_photoDetailsFragment, bundle)
             }
-            photosAdapter.stateRestorationPolicy =
-                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+            photosAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             bi.recyclerPopularPhotos.adapter = photosAdapter
 
             // NestedScrollView
@@ -117,19 +116,13 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
                 is ErrorState -> {
                     bi.progressPhotos.gone()
-                    bi.nestedScrollView.showSnack(
-                        state.message,
-                        getString(R.string.action_retry_str)
-                    ) {
+                    bi.nestedScrollView.showSnack(state.message, getString(R.string.action_retry_str)) {
                         viewModel.retry()
                     }
                 }
 
                 is ErrorNextPageState -> {
-                    bi.nestedScrollView.showSnack(
-                        state.message,
-                        getString(R.string.action_retry_str)
-                    ) {
+                    bi.nestedScrollView.showSnack(state.message, getString(R.string.action_retry_str)) {
                         viewModel.retry()
                     }
                 }
