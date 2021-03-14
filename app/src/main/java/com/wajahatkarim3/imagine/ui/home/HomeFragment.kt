@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 Wajahat Karim
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.wajahatkarim3.imagine.ui.home
 
 import android.os.Bundle
@@ -20,7 +35,11 @@ import com.wajahatkarim3.imagine.adapters.TagsAdapter
 import com.wajahatkarim3.imagine.base.BaseFragment
 import com.wajahatkarim3.imagine.databinding.HomeFragmentBinding
 import com.wajahatkarim3.imagine.model.TagModel
-import com.wajahatkarim3.imagine.utils.*
+import com.wajahatkarim3.imagine.utils.dismissKeyboard
+import com.wajahatkarim3.imagine.utils.gone
+import com.wajahatkarim3.imagine.utils.showSnack
+import com.wajahatkarim3.imagine.utils.showToast
+import com.wajahatkarim3.imagine.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,7 +66,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     fun setupViews() {
         context?.let { ctx ->
             // Tags RecyclerView
-            tagsAdapter = TagsAdapter { tag, position ->
+            tagsAdapter = TagsAdapter { tag, _ ->
                 performSearch(tag.tagName)
             }
             val flexboxLayoutManager = FlexboxLayoutManager(ctx).apply {
@@ -59,7 +78,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             bi.recyclerTags.adapter = tagsAdapter
 
             // Photos RecyclerView
-            photosAdapter = PhotosAdapter() { photo, position ->
+            photosAdapter = PhotosAdapter() { photo, _ ->
                 var bundle = bundleOf("photo" to photo)
                 findNavController().navigate(R.id.action_homeFragment_to_photoDetailsFragment, bundle)
             }
@@ -67,7 +86,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             bi.recyclerPopularPhotos.adapter = photosAdapter
 
             // NestedScrollView
-            bi.nestedScrollView.setOnScrollChangeListener { v: NestedScrollView, scrollX, scrollY, oldScrollX, oldScrollY ->
+            bi.nestedScrollView.setOnScrollChangeListener { v: NestedScrollView, _, scrollY, _, _ ->
                 if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                     viewModel.loadMorePhotos()
                 }
@@ -99,7 +118,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     fun initObservations() {
         viewModel.uiStateLiveData.observe(viewLifecycleOwner) { state ->
-            when(state) {
+            when (state) {
                 is LoadingState -> {
                     bi.recyclerPopularPhotos.gone()
                     bi.progressPhotos.visible()
@@ -175,5 +194,4 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         )
         tagsAdapter.updateItems(tags)
     }
-
 }
