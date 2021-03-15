@@ -89,12 +89,11 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
-    testImplementation "io.mockk:mockk:1.9.3"
+    testImplementation "io.mockk:mockk:1.10.6"
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp_version"
-    androidTestImplementation 'org.mockito:mockito-android:3.7.7'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    androidTestImplementation "io.mockk:mockk-android:1.9.3"
+    androidTestImplementation "io.mockk:mockk-android:1.10.6"
 }
 
 spotless {
