@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build-reports
-          path: app/build/reports
+          path: '**/build/reports'
 
       # Danger
       - name: Danger Kotlin
