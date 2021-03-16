@@ -36,6 +36,6 @@ danger(args) {
         }
 
         // Default report
-        AndroidLint.report("/app/build/reports/lint-results-debug.xml")
+        AndroidLint.report("./build/reports/lint-results-debug.xml")
     }
 }
