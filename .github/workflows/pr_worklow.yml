@@ -1,11 +1,9 @@
-name: Unit and UI Tests
-on:
-  push:
-    branches: [ main ]
+name: Pull Request
+on: [pull_request]
 
 jobs:
   spotless:
-    name: Run Spotless and ktlint check
+    name: Run Spotless, Lint and Danger checks
     runs-on: ubuntu-latest
 
     steps:
@@ -47,6 +45,13 @@ jobs:
           name: build-reports
           path: app/build/reports
 
+      # Danger
+      - name: Danger Kotlin
+        if: ${{ always() }}
+        uses: danger/kotlin@0.7.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.DANGER_GITHUB_TOKEN }}
+
   test:
     needs: spotless
     name: Run Unit Tests
@@ -76,42 +81,3 @@ jobs:
 
       - name: Run Unit tests
         run: ./gradlew test --stacktrace
-
-  android_test:
-    needs: test
-    name: Run Android Tests on Emulator
-    runs-on: macOS-latest # enables hardware acceleration in the virtual machine
-    timeout-minutes: 30
-    strategy:
-      matrix:
-        api-level: [ 23, 26, 29 ]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Run instrumentation tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level }}
-          arch: x86
-          disable-animations: true
-          script: ./gradlew connectedCheck --stacktrace
-
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-reports
-          path: app/build/reports
