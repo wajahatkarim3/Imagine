@@ -45,6 +45,13 @@ jobs:
           name: build-reports
           path: app/build/reports
 
+      - name: Upload Lint reports
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: lint-results-debug.xml
+          path: app/build/reports/lint-results-debug.xml
+
       # Danger
       - name: Danger Kotlin
         if: ${{ always() }}
