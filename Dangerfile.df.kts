@@ -1,4 +1,8 @@
+@file:DependsOn("com.gianluz:danger-kotlin-android-lint-plugin:0.1.0")
+
 import systems.danger.kotlin.*
+
+register plugin AndroidLint
 
 danger(args) {
 
@@ -29,5 +33,8 @@ danger(args) {
         if (pullRequest.title.contains("WIP", false)) {
             warn("PR is classed as Work in Progress")
         }
+
+        // Default report
+        AndroidLint.report("/app/build/reports/lint-results-debug.xml")
     }
 }
