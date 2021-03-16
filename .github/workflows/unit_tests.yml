@@ -60,7 +60,7 @@ jobs:
 
       - name: Danger
         if: ${{ always() }}
-        uses: MeilCli/danger-action@v5
+        uses: MeilCli/danger-action@v5.1.1
         with:
           plugins_file: 'Gemfile'
           install_path: 'vendor/bundle'
