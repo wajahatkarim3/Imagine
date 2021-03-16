@@ -24,14 +24,19 @@ import dagger.hilt.android.HiltAndroidApp
 class ImagineApp : Application() {
 
     override fun onCreate() {
-        super.onCreate()
-        setupDayNightMode()
+        super.onCreate();
+        setupDayNightMode();
     }
 
     fun setupDayNightMode() {
         // Get UI mode and set
         val mode = if (isNight()) {
             AppCompatDelegate.MODE_NIGHT_YES
+
+
+
+
+
         } else {
             AppCompatDelegate.MODE_NIGHT_NO
         }
