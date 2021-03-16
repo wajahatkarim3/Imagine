@@ -1,5 +1,6 @@
 @file:DependsOn("com.gianluz:danger-kotlin-android-lint-plugin:0.1.0")
 
+import com.gianluz.dangerkotlin.androidlint.AndroidLint
 import systems.danger.kotlin.*
 
 register plugin AndroidLint
