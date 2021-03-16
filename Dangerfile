@@ -11,7 +11,3 @@ warn("Please provide a Pull Request description ...") if github.pr_body.length <
 
 android_lint.report_file = "app/build/reports/lint-results-debug.xml"
 android_lint.lint
-
-# Report inline ktlint issues
-# checkstyle_format.base_path = Dir.pwd
-# checkstyle_format.report 'app/build/reports/lint-results-debug.xml'
