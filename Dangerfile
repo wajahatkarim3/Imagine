@@ -9,6 +9,9 @@ warn("This pull request is a Work in Progress and not ready to merge") if github
 # Encourage contributors to write useful descriptions
 warn("Please provide a Pull Request description ...") if github.pr_body.length < 20
 
+android_lint.report_file = "your/report/file.xml"
+android_lint.lint
+
 # Report inline ktlint issues
-checkstyle_format.base_path = Dir.pwd
-checkstyle_format.report 'app/build/reports/lint-results-debug.xml'
+# checkstyle_format.base_path = Dir.pwd
+# checkstyle_format.report 'app/build/reports/lint-results-debug.xml'
