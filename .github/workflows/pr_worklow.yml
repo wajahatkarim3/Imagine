@@ -1,11 +1,9 @@
-name: Unit and UI Tests
-on:
-  push:
-    branches: [ main ]
+name: Pull Request
+on: [pull_request]
 
 jobs:
   spotless:
-    name: Run Spotless and ktlint check
+    name: Run Spotless, Lint and Danger checks
     runs-on: ubuntu-latest
 
     steps:
@@ -32,7 +30,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build project
-        run: ./gradlew spotlessCheck assembleDebug lintDebug --stacktrace
+        run: ./gradlew assembleDebug lintDebug --stacktrace
 
       - name: Upload build outputs (APKs)
         uses: actions/upload-artifact@v2
@@ -45,7 +43,31 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build-reports
-          path: app/build/reports
+          path: '**/build/reports'
+
+      # Danger
+      - name: Install Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('Gemfile') }} # change your gemfile path
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Danger
+        if: ${{ always() }}
+        uses: MeilCli/danger-action@v5
+        with:
+          plugins_file: 'Gemfile'
+          install_path: 'vendor/bundle'
+          danger_file: 'Dangerfile'
+          danger_id: 'danger-pr'
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_TOKEN }}
 
   test:
     needs: spotless
@@ -76,42 +98,3 @@ jobs:
 
       - name: Run Unit tests
         run: ./gradlew test --stacktrace
-
-  android_test:
-    needs: test
-    name: Run Android Tests on Emulator
-    runs-on: macOS-latest # enables hardware acceleration in the virtual machine
-    timeout-minutes: 30
-    strategy:
-      matrix:
-        api-level: [ 23, 26, 29 ]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Run instrumentation tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level }}
-          arch: x86
-          disable-animations: true
-          script: ./gradlew connectedCheck --stacktrace
-
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-reports
-          path: app/build/reports
