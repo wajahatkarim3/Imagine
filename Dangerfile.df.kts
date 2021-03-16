@@ -7,7 +7,7 @@ danger(args) {
     val sourceChanges = allSourceFiles.firstOrNull { it.contains("src") }
 
     onGitHub {
-        message("Thanks @${pullRequest.author} 👍")
+        message("Thanks @${pullRequest.user.login} 👍")
         // val isTrivial = pullRequest.title.contains("#trivial")
 
         // Changelog
