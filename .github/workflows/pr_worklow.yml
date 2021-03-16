@@ -30,7 +30,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build project
-        run: ./gradlew spotlessCheck assembleDebug lintDebug --stacktrace
+        run: ./gradlew assembleDebug lintDebug --stacktrace
 
       - name: Upload build outputs (APKs)
         uses: actions/upload-artifact@v2
