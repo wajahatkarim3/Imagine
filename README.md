@@ -1,7 +1,7 @@
 # Imagine App
 An simple image gallery app utilizing Unsplash API.
 
-![Tests](https://github.com/wajahatkarim3/Imagine/workflows/Tests/badge.svg)
+![Tests](https://github.com/wajahatkarim3/Imagine/workflows/Tests/badge.svg)  [![codecov](https://codecov.io/gh/wajahatkarim3/Imagine/branch/main/graph/badge.svg?token=rYP14UIojU)](https://codecov.io/gh/wajahatkarim3/Imagine)
 
 <div align="center">
   <sub>Built with ❤︎ by

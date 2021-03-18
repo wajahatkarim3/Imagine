@@ -107,7 +107,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           arch: x86
           disable-animations: true
-          script: ./gradlew connectedCheck --stacktrace
+          script: ./gradlew connectedCheck jacocoTestReportDebug --stacktrace
 
       - name: Upload test reports
         if: always()
@@ -115,3 +115,9 @@ jobs:
         with:
           name: test-reports
           path: app/build/reports
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: app/build/reports/jacoco/debug/jacoco.xml

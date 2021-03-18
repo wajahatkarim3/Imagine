@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'dagger.hilt.android.plugin'
     id 'com.diffplug.spotless'
+    id 'com.vanniktech.android.junit.jacoco'
 }
 
 android {
@@ -22,6 +23,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -108,4 +112,29 @@ spotless {
         ktlint("0.40.0")
         licenseHeaderFile rootProject.file('spotless/copyright.kt')
     }
+}
+
+junitJacoco {
+    jacocoVersion = '0.8.3'
+    includeNoLocationClasses = false
+    includeInstrumentationCoverageInMergedReport = true
+    excludes = [
+            '**/databinding/**/*.*',
+            '**/android/databinding/*Binding.*',
+            '**/BR.*',
+            '**/R.*',
+            '**/R$*.*',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*_MembersInjector.*',
+            '**/Dagger*Component.*',
+            '**/Dagger*Component$Builder.*',
+            '**/*Module_*Factory.*',
+            '**/*Fragment*.*',
+            '**/*Activity*.*',
+            '**/*Adapter*.*',
+            '**/*ViewPager*.*',
+            '**/*ViewHolder*.*',
+            '**/*Module*.*'
+    ]
 }
