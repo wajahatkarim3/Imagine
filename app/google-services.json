@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "719748915547",
+    "project_id": "imagine-18f73",
+    "storage_bucket": "imagine-18f73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719748915547:android:581f20f1abd70224917a7e",
+        "android_client_info": {
+          "package_name": "com.wajahatkarim3.imagine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719748915547-a63i4bh5ab2irck20crt7gt5cnqaf8il.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBNIJ1FYpmL8p-QFxrxeNJEzcNBLszgwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719748915547-a63i4bh5ab2irck20crt7gt5cnqaf8il.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
