@@ -30,7 +30,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Generate Debug APK
-        run: ./gradlew assembleDebug --stacktrace
+        run: ./gradlew assembleRelease --stacktrace
 
       # Send APK to Firebase Distributions
       - name: Upload APK to Firebase App Distribution
@@ -39,5 +39,4 @@ jobs:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           token: ${{ secrets.FIREBASE_TOKEN }}
           groups: github-test-apks
-          file: app/build/outputs/apk/debug/app-debug.apk
-
+          file: app/build/outputs/apk/release/app-release-unsigned.apk
