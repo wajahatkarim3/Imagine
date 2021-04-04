@@ -1,0 +1,52 @@
+name: Deploy to Google Play Store
+on:
+  push:
+    branches:
+      - release/*
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+      - uses: actions/checkout@v2
+
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Build
+        run: ./gradlew build
+
+      - name: Assemble Release Build
+        run: |
+          ./gradlew bundleRelease
+
+      - name: Sign Release
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Tag Release
+        run: |
+          version_name=${GITHUB_REF##*/}
+          echo "Tagging release with tag $version_name"
+          git tag $version_name release/$version_name
+          git push origin --tags
+
+      - name: Create service_account.json
+        run echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_
+
+      - name: Deploy to Alpha
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: com.wajahatkarim3.imagine
+          releaseFile: app/build/outputs/bundle/release/app-release.aab
+          track: alpha
