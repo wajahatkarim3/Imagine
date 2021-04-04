@@ -2,14 +2,13 @@ name: Deploy to Google Play Store
 on:
   push:
     branches:
-      - release/*
+      - release/
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
       - uses: actions/checkout@v2
 
       - name: Setup JDK
@@ -21,8 +20,7 @@ jobs:
         run: ./gradlew build
 
       - name: Assemble Release Build
-        run: |
-          ./gradlew bundleRelease
+        run: ./gradlew bundleRelease
 
       - name: Sign Release
         uses: r0adkll/sign-android-release@v1
@@ -41,7 +39,7 @@ jobs:
           git push origin --tags
 
       - name: Create service_account.json
-        run echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_
+        run: echo "${{ secrets.SERVICE_ACCOUNT_JSON }}" > service_
 
       - name: Deploy to Alpha
         uses: r0adkll/upload-google-play@v1
