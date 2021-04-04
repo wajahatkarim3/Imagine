@@ -16,10 +16,10 @@ jobs:
           java-version: 1.8
 
       - name: Build
-        run: ./gradlew build
+      - run: ./gradlew build
 
       - name: Assemble Release Build
-        run: ./gradlew bundleRelease
+      - run: ./gradlew bundleRelease
 
       - name: Sign Release
       - uses: r0adkll/sign-android-release@v1
@@ -31,14 +31,14 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Tag Release
-        run: |
+      - run: |
           version_name=${GITHUB_REF##*/}
           echo "Tagging release with tag $version_name"
           git tag $version_name release/$version_name
           git push origin --tags
 
       - name: Create service_account.json
-        run: echo "${{ secrets.SERVICE_ACCOUNT_JSON }}" > service_
+      - run: echo "${{ secrets.SERVICE_ACCOUNT_JSON }}" > service_
 
       - name: Deploy to Alpha
       - uses: r0adkll/upload-google-play@v1
