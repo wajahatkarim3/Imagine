@@ -41,7 +41,8 @@ jobs:
           git push origin --tags
 
       - name: Create service_account.json
-        run echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_
+        run: |
+          echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_
 
       - name: Deploy to Alpha
         uses: r0adkll/upload-google-play@v1
