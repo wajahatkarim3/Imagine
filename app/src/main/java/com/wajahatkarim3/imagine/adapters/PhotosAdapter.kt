@@ -18,8 +18,6 @@ package com.wajahatkarim3.imagine.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.wajahatkarim3.imagine.R
 import com.wajahatkarim3.imagine.databinding.PhotoItemLayoutBinding
 import com.wajahatkarim3.imagine.model.PhotoModel
 
@@ -28,12 +26,13 @@ class PhotosAdapter(val onPhotoSelected: (photo: PhotoModel, position: Int) -> U
     private val photoItems: ArrayList<PhotoModel> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
-        var binding = PhotoItemLayoutBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+        return PhotoViewHolder(
+            PhotoItemLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-        return PhotoViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
@@ -48,15 +47,11 @@ class PhotosAdapter(val onPhotoSelected: (photo: PhotoModel, position: Int) -> U
         notifyDataSetChanged()
     }
 
-    inner class PhotoViewHolder(val itemBinding: PhotoItemLayoutBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+    inner class PhotoViewHolder(private val itemBinding: PhotoItemLayoutBinding) : RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(photoModel: PhotoModel, position: Int) {
             itemBinding.apply {
-                imgPhoto.load(photoModel.urls.thumb) {
-                    placeholder(R.color.color_box_background)
-                    crossfade(true)
-                }
-
+                item = photoModel
                 cardPhoto.setOnClickListener {
                     onPhotoSelected(photoModel, position)
                 }

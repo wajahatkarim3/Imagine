@@ -45,6 +45,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
     androidExtensions {
         features = ["parcelize"]

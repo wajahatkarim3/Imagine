@@ -41,7 +41,7 @@ class HomeViewModel @Inject constructor(
     var photosListLiveData: LiveData<List<PhotoModel>> = _photosList
 
     private var pageNumber = 1
-    private var searchQuery: String = ""
+     var searchQuery: MutableLiveData<String> = MutableLiveData()
 
     init {
         fetchPhotos(pageNumber)
@@ -49,23 +49,23 @@ class HomeViewModel @Inject constructor(
 
     fun loadMorePhotos() {
         pageNumber++
-        if (searchQuery == "")
+        if (searchQuery.value == "")
             fetchPhotos(pageNumber)
         else
             searchPhotos(searchQuery, pageNumber)
     }
 
     fun retry() {
-        if (searchQuery == "")
+        if (searchQuery.value == "")
             fetchPhotos(pageNumber)
         else
             searchPhotos(searchQuery, pageNumber)
     }
 
     fun searchPhotos(query: String) {
-        searchQuery = query
+        searchQuery.value = query
         pageNumber = 1
-        searchPhotos(query, pageNumber)
+        searchPhotos(searchQuery, pageNumber)
     }
 
     fun fetchPhotos(page: Int) {
@@ -100,31 +100,33 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun searchPhotos(query: String, page: Int) {
+    private fun searchPhotos(query: MutableLiveData<String>, page: Int) {
         _uiState.postValue(if (page == 1) LoadingState else LoadingNextPageState)
         viewModelScope.launch {
-            searchPhotosUsecase(query, page).collect { dataState ->
-                when (dataState) {
-                    is DataState.Success -> {
-                        if (page == 1) {
-                            // First page
-                            _uiState.postValue(ContentState)
-                            _photosList.postValue(dataState.data)
-                        } else {
-                            // Any other page
-                            _uiState.postValue(ContentNextPageState)
-                            var currentList = arrayListOf<PhotoModel>()
-                            _photosList.value?.let { currentList.addAll(it) }
-                            currentList.addAll(dataState.data)
-                            _photosList.postValue(currentList)
+            query.value?.let {
+                searchPhotosUsecase(it, page).collect { dataState ->
+                    when (dataState) {
+                        is DataState.Success -> {
+                            if (page == 1) {
+                                // First page
+                                _uiState.postValue(ContentState)
+                                _photosList.postValue(dataState.data)
+                            } else {
+                                // Any other page
+                                _uiState.postValue(ContentNextPageState)
+                                var currentList = arrayListOf<PhotoModel>()
+                                _photosList.value?.let { currentList.addAll(it) }
+                                currentList.addAll(dataState.data)
+                                _photosList.postValue(currentList)
+                            }
                         }
-                    }
 
-                    is DataState.Error -> {
-                        if (page == 1) {
-                            _uiState.postValue(ErrorState(dataState.message))
-                        } else {
-                            _uiState.postValue(ErrorNextPageState(dataState.message))
+                        is DataState.Error -> {
+                            if (page == 1) {
+                                _uiState.postValue(ErrorState(dataState.message))
+                            } else {
+                                _uiState.postValue(ErrorNextPageState(dataState.message))
+                            }
                         }
                     }
                 }

@@ -58,29 +58,30 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        bi.vm = viewModel
+        bi.lifecycleOwner = this
+
         setupViews()
         initTags()
         initObservations()
     }
 
-    fun setupViews() {
+    private fun setupViews() {
         context?.let { ctx ->
             // Tags RecyclerView
             tagsAdapter = TagsAdapter { tag, _ ->
                 performSearch(tag.tagName)
             }
-            val flexboxLayoutManager = FlexboxLayoutManager(ctx).apply {
+            bi.recyclerTags.layoutManager = FlexboxLayoutManager(ctx).apply {
                 flexWrap = FlexWrap.WRAP
                 flexDirection = FlexDirection.ROW
                 alignItems = AlignItems.STRETCH
             }
-            bi.recyclerTags.layoutManager = flexboxLayoutManager
             bi.recyclerTags.adapter = tagsAdapter
 
             // Photos RecyclerView
-            photosAdapter = PhotosAdapter() { photo, _ ->
-                var bundle = bundleOf("photo" to photo)
-                findNavController().navigate(R.id.action_homeFragment_to_photoDetailsFragment, bundle)
+            photosAdapter = PhotosAdapter { photo, _ ->
+                findNavController().navigate(R.id.action_homeFragment_to_photoDetailsFragment, bundleOf("photo" to photo))
             }
             photosAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             bi.recyclerPopularPhotos.adapter = photosAdapter
@@ -95,7 +96,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             // Input Text Search
             bi.inputSearchPhotos.setEndIconOnClickListener {
                 bi.txtSearchPhotos.setText("")
-                bi.lblPopular.setText(getString(R.string.label_popular_text_str))
+                bi.lblPopular.text = (getString(R.string.label_popular_text_str))
                 viewModel.fetchPhotos(1)
             }
 
@@ -111,12 +112,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     }
 
     private fun performSearch(query: String) {
-        bi.txtSearchPhotos.setText(query)
-        bi.lblPopular.setText(getString(R.string.message_search_results_for_str, query))
         viewModel.searchPhotos(query)
     }
 
-    fun initObservations() {
+    private fun initObservations() {
         viewModel.uiStateLiveData.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is LoadingState -> {

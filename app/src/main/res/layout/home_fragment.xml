@@ -1,117 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    android:id="@+id/nestedScrollView"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_background"
-    tools:context=".ui.home.HomeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="vm"
+            type="com.wajahatkarim3.imagine.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_background"
-        android:padding="8dp">
+        tools:context=".ui.home.HomeFragment">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardSearchPhotos"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardBackgroundColor="@color/color_box_background"
-            app:cardElevation="8dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@color/color_background"
+            android:padding="8dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputSearchPhotos"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSearchPhotos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:padding="5dp"
-                android:theme="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                app:boxBackgroundMode="none"
-                app:boxCollapsedPaddingTop="0dp"
-                app:hintAnimationEnabled="false"
-                app:hintEnabled="false"
-                app:endIconMode="clear_text"
-                app:startIconDrawable="@drawable/ic_baseline_search_24"
-                app:startIconTint="@color/color_hint_text">
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@color/color_box_background"
+                app:cardElevation="8dp"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtSearchPhotos"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputSearchPhotos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:lines="1"
                     android:gravity="center_vertical"
-                    android:hint="@string/hint_search_photos_text_str"
-                    android:padding="10dp"
-                    android:textColorHint="@color/color_hint_text" />
+                    android:padding="5dp"
+                    android:theme="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                    app:boxBackgroundMode="none"
+                    app:boxCollapsedPaddingTop="0dp"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false"
+                    app:endIconMode="clear_text"
+                    app:startIconDrawable="@drawable/ic_baseline_search_24"
+                    app:startIconTint="@color/color_hint_text">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtSearchPhotos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:text="@{vm.searchQuery}"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_search_photos_text_str"
+                        android:padding="10dp"
+                        android:textColorHint="@color/color_hint_text" />
 
-        </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/lblExplore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/label_explore_text_str"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
-            app:layout_constraintTop_toBottomOf="@+id/cardSearchPhotos" />
+            </com.google.android.material.card.MaterialCardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerTags"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
-            app:layout_constraintTop_toBottomOf="@+id/lblExplore"
-            app:spanCount="4"
-            tools:itemCount="7"
-            tools:listitem="@layout/tag_item_layout" />
+            <TextView
+                android:id="@+id/lblExplore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/label_explore_text_str"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
+                app:layout_constraintTop_toBottomOf="@+id/cardSearchPhotos" />
 
-        <TextView
-            android:id="@+id/lblPopular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/label_popular_text_str"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerTags" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerTags"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
+                app:layout_constraintTop_toBottomOf="@+id/lblExplore"
+                app:spanCount="4"
+                tools:itemCount="7"
+                tools:listitem="@layout/tag_item_layout" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerPopularPhotos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
-            app:layout_constraintTop_toBottomOf="@+id/lblPopular"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:itemCount="7"
-            tools:listitem="@layout/photo_item_layout"/>
+            <TextView
+                android:id="@+id/lblPopular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@{vm.searchQuery ==  null ? @string/label_popular_text_str : @string/message_search_results_for_str(vm.searchQuery)}"
+                android:textSize="22sp"
+                tools:text="@string/label_popular_text_str"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerTags" />
 
-        <ProgressBar android:id="@+id/progressPhotos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
-            app:layout_constraintEnd_toEndOf="@+id/cardSearchPhotos"
-            app:layout_constraintTop_toBottomOf="@+id/lblPopular"
-            android:layout_marginTop="40dp"
-            />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPopularPhotos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
+                app:layout_constraintTop_toBottomOf="@+id/lblPopular"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:itemCount="7"
+                tools:listitem="@layout/photo_item_layout" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ProgressBar
+                android:id="@+id/progressPhotos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/cardSearchPhotos"
+                app:layout_constraintEnd_toEndOf="@+id/cardSearchPhotos"
+                app:layout_constraintTop_toBottomOf="@+id/lblPopular"
+                android:layout_marginTop="40dp" />
 
-</androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>
 
