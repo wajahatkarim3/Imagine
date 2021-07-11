@@ -5,17 +5,52 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000743">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.00123">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: clean bundleRelease" time="31.73221">
+      <testcase classname="fastlane.lanes" name="1: Switch to android test lane" time="0.001319">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: upload_to_play_store" time="65.549117">
+      <testcase classname="fastlane.lanes" name="2: test" time="96.605006">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: Switch to android build_for_screengrab lane" time="0.000502">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: clean" time="3.837993">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: assembleDebug" time="28.665747">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: assembleAndroidTest" time="8.542327">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="7: screengrab" time="43.229473">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="8: clean bundleRelease" time="38.048039">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="9: upload_to_play_store" time="75.101367">
         
       </testcase>
     

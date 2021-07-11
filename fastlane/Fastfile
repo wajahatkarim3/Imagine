@@ -53,6 +53,8 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
+    test()
+    build_for_screengrab()
     gradle(task: "clean bundleRelease")
     upload_to_play_store(skip_upload_apk:"true", track:"internal")
   end
