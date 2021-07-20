@@ -125,6 +125,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 }
 
                 is LoadingNextPageState -> {
+                    bi.progressPhotos.gone()
                     showToast(getString(R.string.message_load_photos_str))
                 }
 
