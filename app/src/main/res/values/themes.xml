@@ -8,6 +8,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- TV theme -->
+    <style name="Theme.Imagine.LeanBack" parent="Theme.Imagine.Base">
+        <item name="android:colorPrimary">@color/color_secondary_dark</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+    </style>
+
     <!-- Default Theme -->
     <style name="Theme.Imagine.Base" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->

@@ -15,6 +15,9 @@
 */
 package com.wajahatkarim3.imagine.ui.home
 
+import android.app.UiModeManager
+import android.content.Context.UI_MODE_SERVICE
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,6 +26,7 @@ import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
@@ -84,6 +88,11 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             }
             photosAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             bi.recyclerPopularPhotos.adapter = photosAdapter
+
+            val uiModeManager = requireContext().getSystemService(UI_MODE_SERVICE) as UiModeManager
+            if (uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION) {
+                (bi.recyclerPopularPhotos.layoutManager as? GridLayoutManager)?.spanCount = 5
+            }
 
             // NestedScrollView
             bi.nestedScrollView.setOnScrollChangeListener { v: NestedScrollView, _, scrollY, _, _ ->
