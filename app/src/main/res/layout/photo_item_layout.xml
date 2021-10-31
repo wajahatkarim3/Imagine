@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingEnd="10dp">
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/outline_focus_drawable"
+    android:padding="10dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardPhoto"
