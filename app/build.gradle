@@ -93,7 +93,7 @@ dependencies {
 
     // Third-party
     implementation 'com.google.android:flexbox:2.0.1'
-    implementation "io.coil-kt:coil:1.1.1"
+    implementation "io.coil-kt:coil:2.2.1"
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     // Testing
