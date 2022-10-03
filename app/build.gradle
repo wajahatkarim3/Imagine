@@ -104,7 +104,7 @@ dependencies {
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    androidTestImplementation "io.mockk:mockk-android:1.10.6"
+    androidTestImplementation "io.mockk:mockk-android:1.13.2"
 }
 
 spotless {
