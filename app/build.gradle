@@ -89,7 +89,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Firebase
-    implementation platform('com.google.firebase:firebase-bom:26.7.0')
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
 
     // Third-party
     implementation 'com.google.android:flexbox:2.0.1'
